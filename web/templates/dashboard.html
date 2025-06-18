@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="p-6">
+<h1 class="text-xl font-bold mb-4">User Dashboard</h1>
+<table class="table-auto w-full">
+<thead><tr><th>ID</th><th>Name</th><th>Status</th><th>Aktion</th></tr></thead>
+<tbody>
+{% for user in users %}
+<tr class="border-t">
+<td>{{ user[0] }}</td>
+<td>{{ user[1] }}</td>
+<td>{{ 'Aktiv' if not user[3] else 'Verlassen' }}</td>
+<td>
+{% if user[3] and not user[4] %}
+<a href="/ban/{{ user[0] }}" class="text-red-600">Ban</a>
+{% elif user[4] %}
+<span class="text-gray-500">Gebannt</span>
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</body>
+</html>
