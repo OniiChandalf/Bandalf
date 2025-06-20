@@ -4,7 +4,7 @@ import asyncio
 from bot.config import DISCORD_TOKEN, GUILD_ID
 
 intents = discord.Intents.default()
-intents.members = True  # notwendig zum Zugriff auf Servermitglieder
+intents.members = True
 
 client = discord.Client(intents=intents)
 
