@@ -32,3 +32,19 @@ async def ban_user_on_discord(user_id):
         print("❌ User nicht auf dem Server")
     except Exception as e:
         print(f"❌ Fehler beim Bannen: {e}")
+
+@client.event
+async def on_ready():
+    print(f"✅ Bot eingeloggt als {client.user}")
+    
+    guild = client.get_guild(GUILD_ID)
+    if guild is None:
+        print("⚠️ Server nicht gefunden. Prüfe GUILD_ID.")
+        return
+
+    # Mitglieder synchronisieren
+    from bot.db import add_user_if_not_exists
+    for member in guild.members:
+        add_user_if_not_exists(member.id, str(member))
+    
+    print(f"🔄 Mitglieder synchronisiert: {len(guild.members)}")
