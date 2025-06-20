@@ -15,3 +15,10 @@ def mark_user_banned(user_id):
     cursor = conn.cursor()
     cursor.execute("UPDATE users SET banned = 1 WHERE id = ?", (user_id,))
     conn.commit()
+    
+def add_user_if_not_exists(user_id, username):
+    c = conn.cursor()
+    c.execute("SELECT id FROM users WHERE id = ?", (user_id,))
+    if c.fetchone() is None:
+        c.execute("INSERT INTO users (id, name, banned) VALUES (?, ?, 0)", (user_id, username))
+        conn.commit()
